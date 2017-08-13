@@ -266,9 +266,12 @@ function doFbLogin(dispatch) {
 }
 
 export function setCenter(lat, lng) {
-  return {
-    type: SET_CENTER,
-    payload: [lat, lng]
+  return (dispatch, getState) => {
+    let zoom = getState().insta.mapState.zoom;
+    return dispatch({
+      type: SET_CENTER,
+      payload: [lat, lng, zoom]
+    });
   };
 }
 
@@ -311,7 +314,7 @@ function distance(lat1, lon1, lat2, lon2, unit) {
 
 export function zoomToArea(address, zoom) {
   // Get the address or place that the user entered.
-  return dispatch => {
+  return (dispatch, getState) => {
     // Initialize the geocoder.
     let geocoder = new google.maps.Geocoder();
     // Make sure the address isn't blank.
@@ -327,17 +330,15 @@ export function zoomToArea(address, zoom) {
       geocoder.geocode({ address }, function(results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
           //   if (status == google.maps.GeocoderStatus.OK) {
+          zoom || (zoom = getState().insta.mapState.zoom);
           dispatch({
             type: SET_CENTER,
             payload: [
               results[0].geometry.location.lat(),
-              results[0].geometry.location.lng()
+              results[0].geometry.location.lng(),
+              zoom
             ]
           });
-          if (zoom) {
-            // map.setZoom(zoom);
-          }
-
           // call the api
         } else {
           // dispatch({

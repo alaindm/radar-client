@@ -11,49 +11,82 @@ import {
   GET_MAP_STATE,
   SET_TAB,
   SET_LOADING
-} from '../actions/types';
+} from "../actions/types";
 
 const initialState = {
   pics: [],
   baseInfo: {},
-  error: '',
+  error: "",
   loading: false,
-  tab: 'mosaic',
+  tab: "mosaic",
   placesData: {
     data: []
   },
   locationData: {
-    name: ''
+    name: ""
+  },
+  mapState: {
+    zoom: 15,
+    center: [40.778746, -73.967954]
   }
-}
+};
 
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_PLACES:
-      return { ...state, error: '', loading: false, placesData: action.data }
+      return { ...state, error: "", loading: false, placesData: action.data };
     case GET_SINGLE_LOCATION_PICS:
-      return { ...state, error: '', loading: false, locationData: action.locationData, pics: action.pics }
-    case GET_MULTI_LOCATION_PICS:      
-      return { ...state, error: '', loading: false, pics: action.payload };
+      return {
+        ...state,
+        error: "",
+        loading: false,
+        locationData: action.locationData,
+        pics: action.pics
+      };
+    case GET_MULTI_LOCATION_PICS:
+      return { ...state, error: "", loading: false, pics: action.payload };
     case GET_USER_INFO:
-      return { ...state, error: '', loading: false, userData: action.data, pics: action.pics }
+      return {
+        ...state,
+        error: "",
+        loading: false,
+        userData: action.data,
+        pics: action.pics
+      };
     case GET_POST_INFO:
-      return { ...state, error: '', loading: false, postData: action.data };
-      case GET_TAG_INFO:
-        return { ...state, error: '', loading: false, tagData: action.data, pics: action.pics }
+      return { ...state, error: "", loading: false, postData: action.data };
+    case GET_TAG_INFO:
+      return {
+        ...state,
+        error: "",
+        loading: false,
+        tagData: action.data,
+        pics: action.pics
+      };
     case API_ERROR:
       return { ...state, error: action.payload, loading: false, pics: [] };
     case SET_ACCESS_TOKEN:
-      return { ...state, accessToken: action.payload.accessToken, accessTokenExpirationTime: action.payload.accessTokenExpirationTime }
+      return {
+        ...state,
+        accessToken: action.payload.accessToken,
+        accessTokenExpirationTime: action.payload.accessTokenExpirationTime
+      };
     case SET_CENTER:
-      return { ...state, center: [action.payload[0], action.payload[1]] }
+      return {
+        ...state,
+        mapState: {
+          ...state.mapState,
+          center: [action.payload[0], action.payload[1]],
+          zoom: action.payload[2]
+        }
+      };
     case GET_MAP_STATE:
-      return { ...state, mapState: action.payload }
+      return { ...state, mapState: action.payload };
     case SET_TAB:
-      return { ...state, tab: action.payload }
+      return { ...state, tab: action.payload };
     case SET_LOADING:
-      return { ...state, loading: true }
+      return { ...state, loading: true };
     default:
-      return state
+      return state;
   }
 }
