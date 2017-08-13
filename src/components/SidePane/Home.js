@@ -1,9 +1,49 @@
-import React from 'react';
+import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { List, ListItem } from "material-ui/List";
+import { Card, CardTitle } from "material-ui/Card";
+import Avatar from "material-ui/Avatar";
+import Subheader from "material-ui/Subheader";
+import * as actions from "../../actions";
 
-export default () => {
+class Home extends Component {
+  render() {
     return (
-        <div>
-            Home Page
-        </div>
-    )
+      <div>
+        Home Page
+        <Card>
+          <CardTitle
+            title="Suggested Centers"
+            subtitle="Select region to see the latest photos around there!"
+          />
+          <List>
+            <ListItem
+              primaryText="Sydney Opera House"
+              leftAvatar={<Avatar src="images/opera-house.jpg" />}
+              onTouchTap={() => {
+                this.props.zoomToArea("-33.857684, 151.214825", 12);
+              }}
+            />
+            <ListItem
+              primaryText="Grand Canyon"
+              leftAvatar={<Avatar src="images/grand-canyon.jpeg" />}
+              onTouchTap={() => {
+                this.props.zoomToArea("36.062934, -112.122818", 13);
+              }}
+            />
+            <ListItem
+              primaryText="Wembley Stadium"
+              leftAvatar={<Avatar src="images/wembley.jpg" />}
+              onTouchTap={() => {
+                this.props.zoomToArea("51.555854, -0.279519", 14);
+              }}
+            />
+          </List>
+        </Card>
+      </div>
+    );
+  }
 }
+
+export default withRouter(connect(null, actions)(Home));
