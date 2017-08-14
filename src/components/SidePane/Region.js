@@ -28,19 +28,12 @@ class Region extends Component {
 
   componentDidMount() {
     if (this.props.pics.length < 1 && this.props.mapState.bounds) {
-      console.log("did", this.props);
       this.FBcheckBeforeGetPics();
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log("this", this.props.mapState.bounds);
-    console.log("next", nextProps.mapState.bounds);
-    if (
-      // this.props.mapState.center.lat.toFixed(5) !==
-      // nextProps.mapState.center.lat.toFixed(5)
-      this.props.mapState.bounds !== nextProps.mapState.bounds
-    ) {
+    if (this.props.mapState.bounds !== nextProps.mapState.bounds) {
       this.FBcheckBeforeGetPics();
     }
   }
