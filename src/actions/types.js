@@ -11,3 +11,4 @@ export const GET_MAP_STATE = "get_map_state";
 export const SET_TAB = "set_tab";
 export const SET_LOADING = "set_loading";
 export const CLEAN_PICS = "clean_pics";
+export const CLEAN_POST = "clean_post";

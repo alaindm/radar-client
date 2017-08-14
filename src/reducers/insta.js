@@ -11,12 +11,12 @@ import {
   GET_MAP_STATE,
   SET_TAB,
   SET_LOADING,
-  CLEAN_PICS
+  CLEAN_PICS,
+  CLEAN_POST
 } from "../actions/types";
 
 const initialState = {
   pics: [],
-  baseInfo: {},
   error: "",
   loading: false,
   tab: "mosaic",
@@ -41,6 +41,8 @@ export default function(state = initialState, action) {
       return { ...state, error: "", placesData: action.data };
     case CLEAN_PICS:
       return { ...state, pics: [] };
+    case CLEAN_POST:
+      return { ...state, postData: {} };
     case GET_SINGLE_LOCATION_PICS:
       return {
         ...state,

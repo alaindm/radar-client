@@ -66,7 +66,7 @@ class Post extends Component {
       return <Error />;
     }
 
-    if (post) {
+    if (post !== undefined && post.owner) {
       return (
         <div className="scroll">
           <BackButton />

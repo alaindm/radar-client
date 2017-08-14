@@ -14,7 +14,8 @@ import {
   GET_MAP_STATE,
   SET_TAB,
   SET_LOADING,
-  CLEAN_PICS
+  CLEAN_PICS,
+  CLEAN_POST
 } from "./types";
 import config from "../config.json";
 
@@ -90,6 +91,7 @@ export const getSingleLocationPics = location => {
   // location must have an 'id' property
   return (dispatch, getState) => {
     dispatch({ type: SET_LOADING });
+    dispatch({ type: CLEAN_PICS });
     axios
       .post(`${HOST}/single-location-pics`, location)
       .then(response => {
@@ -151,6 +153,7 @@ export function getMultiLocationPics() {
 export const getUserInfo = username => {
   return dispatch => {
     dispatch({ type: SET_LOADING });
+    dispatch({ type: CLEAN_PICS });
     axios
       .post(`${HOST}/user-info`, { username })
       .then(response =>
@@ -167,6 +170,7 @@ export const getUserInfo = username => {
 export const getPostInfo = photoId => {
   return dispatch => {
     dispatch({ type: SET_LOADING });
+    dispatch({ type: CLEAN_POST });
     axios
       .post(`${HOST}/post-info`, { photoId })
       .then(response =>
@@ -183,6 +187,7 @@ export const getPostInfo = photoId => {
 export const getTagInfo = tag => {
   return dispatch => {
     dispatch({ type: SET_LOADING });
+    dispatch({ type: CLEAN_PICS });
     axios
       .post(`${HOST}/tag-info`, { tag })
       .then(response =>
