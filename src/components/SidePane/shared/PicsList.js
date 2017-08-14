@@ -33,11 +33,22 @@ class PicsList extends Component {
     }
   };
 
+  // componentWillReceiveProps(nextProps) {
+  //   console.log(nextProps.pics.length);
+  //   if (nextProps.pics.length === 0) {
+  //     console.log("here");
+  //     this.setState({
+  //       imagesLoading: false
+  //     });
+  //   }
+  // }
+
   renderSpinner() {
     if (!this.state.imagesLoading) {
       return null;
+    } else {
+      return <div className="spinner">Rendering all the images ...</div>;
     }
-    return <div className="spinner">Rendering all the images ...</div>;
   }
 
   renderPicCard = item => {
@@ -91,7 +102,9 @@ class PicsList extends Component {
     return (
       <div>
         <div>
-          {this.renderSpinner()}
+          {this.props.pics.length > 0
+            ? this.renderSpinner()
+            : <div>No recent photos here</div>}
         </div>
         <div className={this.state.imagesLoading ? "hidden" : ""}>
           {this.props.pics.length > 0 &&
