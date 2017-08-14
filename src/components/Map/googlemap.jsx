@@ -37,7 +37,7 @@ class Map extends Component {
   }
 
   componentWillUnmount() {
-    // unsubscribe
+    navigateMap$.unsubscribe();
   }
 
   componentWillMount() {
