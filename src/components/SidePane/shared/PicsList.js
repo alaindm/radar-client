@@ -43,45 +43,46 @@ class PicsList extends Component {
   renderPicCard = item => {
     return (
       <div>
-        {this.renderSpinner()}
-        <Card className="card" key={item.id}>
-          {item.location &&
-            <div
-              onClick={() =>
-                this.props.history.push(`/location/${item.location.id}`)}
-              style={{ cursor: "pointer" }}
+        <div>
+          <Card className="card" key={item.id}>
+            {item.location &&
+              <div
+                onClick={() =>
+                  this.props.history.push(`/location/${item.location.id}`)}
+                style={{ cursor: "pointer" }}
+              >
+                <PlaceIcon />
+                <span>
+                  {item.location.name}
+                </span>
+              </div>}
+            <CardMedia
+              overlay={
+                <CardTitle
+                  title={moment(item.date * 1000).fromNow()}
+                  subtitle={`${item.likes.count} likes`}
+                />
+              }
             >
-              <PlaceIcon />
-              <span>
-                {item.location.name}
-              </span>
-            </div>}
-          <CardMedia
-            overlay={
-              <CardTitle
-                title={moment(item.date * 1000).fromNow()}
-                subtitle={`${item.likes.count} likes`}
+              <img
+                src={item.thumbnail_src}
+                onLoad={() => this.imagesLoaded()}
+                onError={() => this.imagesLoaded()}
+                alt="from post"
               />
-            }
-          >
-            <img
-              src={item.thumbnail_src}
-              onLoad={() => this.imagesLoaded()}
-              onError={() => this.imagesLoaded()}
-              alt="from post"
-            />
-          </CardMedia>
-          <CardTitle subtitle={`${item.comments.count} comments`} />
-          <CardText>
-            <TextWithLinks text={item.caption} />
-          </CardText>
-          <CardActions>
-            <FlatButton
-              label="See Full Post"
-              onClick={() => this.props.history.push(`/post/${item.code}`)}
-            />
-          </CardActions>
-        </Card>
+            </CardMedia>
+            <CardTitle subtitle={`${item.comments.count} comments`} />
+            <CardText>
+              <TextWithLinks text={item.caption} />
+            </CardText>
+            <CardActions>
+              <FlatButton
+                label="See Full Post"
+                onClick={() => this.props.history.push(`/post/${item.code}`)}
+              />
+            </CardActions>
+          </Card>
+        </div>
       </div>
     );
   };
@@ -89,7 +90,13 @@ class PicsList extends Component {
   render() {
     return (
       <div>
-        {this.props.pics.length > 0 && this.props.pics.map(this.renderPicCard)}
+        <div>
+          {this.renderSpinner()}
+        </div>
+        <div className={this.state.imagesLoading ? "hidden" : ""}>
+          {this.props.pics.length > 0 &&
+            this.props.pics.map(this.renderPicCard)}
+        </div>
       </div>
     );
   }
