@@ -10,7 +10,8 @@ import {
   SET_CENTER,
   GET_MAP_STATE,
   SET_TAB,
-  SET_LOADING
+  SET_LOADING,
+  CLEAN_PICS
 } from "../actions/types";
 
 const initialState = {
@@ -27,14 +28,19 @@ const initialState = {
   },
   mapState: {
     zoom: 15,
-    center: [40.778746, -73.967954]
+    center: {
+      lat: 40.778746,
+      lng: -73.967954
+    }
   }
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_PLACES:
-      return { ...state, error: "", loading: false, placesData: action.data };
+      return { ...state, error: "", placesData: action.data };
+    case CLEAN_PICS:
+      return { ...state, pics: [] };
     case GET_SINGLE_LOCATION_PICS:
       return {
         ...state,
@@ -76,7 +82,10 @@ export default function(state = initialState, action) {
         ...state,
         mapState: {
           ...state.mapState,
-          center: [action.payload[0], action.payload[1]],
+          center: {
+            lat: action.payload[0],
+            lng: action.payload[1]
+          },
           zoom: action.payload[2]
         }
       };

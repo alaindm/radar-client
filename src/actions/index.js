@@ -13,7 +13,8 @@ import {
   SET_CENTER,
   GET_MAP_STATE,
   SET_TAB,
-  SET_LOADING
+  SET_LOADING,
+  CLEAN_PICS
 } from "./types";
 import config from "../config.json";
 
@@ -122,6 +123,7 @@ export function getMultiLocationPics() {
         let cornerLng = wrappedCorner.lng();
         let radius =
           1000 * distance(centerLat, centerLng, cornerLat, cornerLng, "K");
+        dispatch({ type: CLEAN_PICS });
         dispatch({ type: SET_LOADING });
         // must send with this names
         return axios.post(`${HOST}/multi-location-pics`, {
@@ -142,6 +144,7 @@ export function getMultiLocationPics() {
         // })
       })
       .catch(() => dispatch(apiError("Could not get the region photos")));
+    // .catch(e => console.log(e));
   };
 }
 
@@ -312,10 +315,22 @@ function distance(lat1, lon1, lat2, lon2, unit) {
   return dist;
 }
 
+export function goToRegion(history, lat, lng, zoom) {
+  return dispatch => {
+    dispatch({ type: CLEAN_PICS });
+    dispatch({
+      type: SET_CENTER,
+      payload: [lat, lng, zoom]
+    });
+    history.push("/region");
+  };
+}
+
 export function zoomToArea(address, zoom) {
   // Get the address or place that the user entered.
   return (dispatch, getState) => {
     // Initialize the geocoder.
+    dispatch({ type: CLEAN_PICS });
     let geocoder = new google.maps.Geocoder();
     // Make sure the address isn't blank.
     if (address === "") {

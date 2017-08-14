@@ -22,21 +22,36 @@ class Home extends Component {
               primaryText="Sydney Opera House"
               leftAvatar={<Avatar src="images/opera-house.jpg" />}
               onTouchTap={() => {
-                this.props.zoomToArea("-33.857684, 151.214825", 17);
+                this.props.goToRegion(
+                  this.props.history,
+                  -33.857684,
+                  151.214825,
+                  17
+                );
               }}
             />
             <ListItem
               primaryText="Grand Canyon"
               leftAvatar={<Avatar src="images/grand-canyon.jpeg" />}
               onTouchTap={() => {
-                this.props.zoomToArea("36.062934, -112.122818", 14);
+                this.props.goToRegion(
+                  this.props.history,
+                  36.062934,
+                  -112.122818,
+                  14
+                );
               }}
             />
             <ListItem
               primaryText="Wembley Stadium"
               leftAvatar={<Avatar src="images/wembley.jpg" />}
               onTouchTap={() => {
-                this.props.zoomToArea("51.555854, -0.279519", 16);
+                this.props.goToRegion(
+                  this.props.history,
+                  51.555854,
+                  -0.279519,
+                  16
+                );
               }}
             />
           </List>
