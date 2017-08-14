@@ -2,9 +2,27 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { Card, CardTitle } from "material-ui/Card";
+import RaisedButton from "material-ui/RaisedButton";
+import MapIcon from "material-ui/svg-icons/maps/map";
 import TabsWithContent from "./shared/TabsWithContent";
 import PlaceIcon from "material-ui/svg-icons/maps/place";
-import { getSingleLocationPics } from "../../actions";
+import { getSingleLocationPics, setCenter } from "../../actions";
+
+const styles = {
+  button: {
+    margin: 12
+  },
+  exampleImageInput: {
+    cursor: "pointer",
+    position: "relative",
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0,
+    width: "100%",
+    opacity: 0
+  }
+};
 
 class Location extends Component {
   componentDidMount() {
@@ -14,7 +32,7 @@ class Location extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.match.params !== nextProps.match.params) {
+    if (this.props.match.params.id !== nextProps.match.params.id) {
       const { id } = nextProps.match.params;
       this.props.getSingleLocationPics({ id });
     }
@@ -27,10 +45,6 @@ class Location extends Component {
           <CardTitle
             title={
               <div
-                onClick={() =>
-                  this.props.history.push(
-                    `/location/${this.props.locationData.id}`
-                  )}
                 style={{
                   cursor: "pointer",
                   position: "relative"
@@ -50,6 +64,19 @@ class Location extends Component {
               </div>
             }
           />
+          <RaisedButton
+            onTouchTap={() => {
+              this.props.setCenter(
+                this.props.locationData.lat,
+                this.props.locationData.lng,
+                19
+              );
+            }}
+            label="Center map on this place"
+            primary={true}
+            style={styles.button}
+            icon={<MapIcon />}
+          />
         </Card>
       );
     };
@@ -65,5 +92,5 @@ function mapStateToProps(state) {
 }
 
 export default withRouter(
-  connect(mapStateToProps, { getSingleLocationPics })(Location)
+  connect(mapStateToProps, { getSingleLocationPics, setCenter })(Location)
 );

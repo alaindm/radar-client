@@ -273,9 +273,9 @@ function doFbLogin(dispatch) {
   });
 }
 
-export function setCenter(lat, lng) {
+export function setCenter(lat, lng, zoom) {
   return (dispatch, getState) => {
-    let zoom = getState().insta.mapState.zoom;
+    zoom ? zoom : getState().insta.mapState.zoom;
     return dispatch({
       type: SET_CENTER,
       payload: [lat, lng, zoom]
@@ -335,7 +335,7 @@ export function zoomToArea(address, zoom) {
   // Get the address or place that the user entered.
   return (dispatch, getState) => {
     // Initialize the geocoder.
-    dispatch({ type: CLEAN_PICS });
+    // dispatch({ type: CLEAN_PICS });
     let geocoder = new google.maps.Geocoder();
     // Make sure the address isn't blank.
     if (address === "") {
