@@ -3,12 +3,15 @@ import shouldPureComponentUpdate from "react-pure-render/function";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import Rx from "rxjs";
 import GoogleMap from "google-map-react";
 import LocationMarker from "./LocationMarker.jsx";
 import { googleClientID } from "../../config/keys";
 import { K_SIZE } from "./LocationMarker_styles.js";
 import * as actions from "../../actions";
 import "./googlemap.css";
+
+const navigateMap$ = new Rx.Subject();
 
 class Map extends Component {
   static propTypes = {};
@@ -23,6 +26,19 @@ class Map extends Component {
   // constructor(props) {
   //     super(props);
   // }
+
+  componentDidMount() {
+    navigateMap$
+      .debounceTime(1200)
+      .distinctUntilChanged()
+      .subscribe(mapState => {
+        this.onMapChange(mapState);
+      });
+  }
+
+  componentWillUnmount() {
+    // unsubscribe
+  }
 
   componentWillMount() {
     this.getLocation();
@@ -106,7 +122,8 @@ class Map extends Component {
         center={this.props.mapState.center}
         options={this.createMapOptions}
         hoverDistance={K_SIZE / 1.2}
-        onChange={mapState => this.onMapChange(mapState)}
+        // onChange={mapState => this.onMapChange(mapState)}
+        onChange={mapState => navigateMap$.next(mapState)}
         onChildClick={this._onChildClick}
         zoom={this.props.mapState.zoom}
       >
