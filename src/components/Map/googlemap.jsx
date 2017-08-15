@@ -127,7 +127,8 @@ class Map extends Component {
         onChildClick={this._onChildClick}
         zoom={this.props.mapState.zoom}
       >
-        {this.props.places.map(this.renderLocationMarkers)}
+        {this.props.places.length > 0 &&
+          this.props.places.map(this.renderLocationMarkers)}
       </GoogleMap>
     );
   }
