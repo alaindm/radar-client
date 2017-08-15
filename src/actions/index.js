@@ -17,9 +17,8 @@ import {
   CLEAN_PICS,
   CLEAN_POST
 } from "./types";
-import config from "../config.json";
 
-const HOST = config.HOST;
+const HOST = process.env.REACT_APP_HOST;
 
 export function setTab(tab) {
   return {

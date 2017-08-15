@@ -6,11 +6,11 @@ import { withRouter } from "react-router-dom";
 import Rx from "rxjs";
 import GoogleMap from "google-map-react";
 import LocationMarker from "./LocationMarker.jsx";
-import { googleClientID } from "../../config/keys";
 import { K_SIZE } from "./LocationMarker_styles.js";
 import * as actions from "../../actions";
 import "./googlemap.css";
 
+const googleClientID = process.env.REACT_APP_GOOGLE_MAPS_CLIENT_ID;
 const navigateMap$ = new Rx.Subject();
 
 class Map extends Component {
