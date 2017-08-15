@@ -58,14 +58,12 @@ export function logFBplaces() {
             access_token: accessToken
           },
           response => {
-            // dispatch({
-            //     type: GET_MULTI_LOCATION_PICS,
-            //     payload: response.data.slice(1,7)
-            // })
-            // dispatch({
-            //     type: CHANGE_SIDEPANE,
-            //     payload: 'region'
-            // })
+            if (response.error) {
+              return dispatch({
+                type: API_ERROR,
+                payload: response.error
+              });
+            }
             dispatch({
               type: GET_PLACES,
               data: response
