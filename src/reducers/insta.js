@@ -23,6 +23,7 @@ const initialState = {
   placesData: {
     data: []
   },
+  postData: {},
   locationData: {
     name: ""
   },

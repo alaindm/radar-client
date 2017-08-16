@@ -27,7 +27,7 @@ class Region extends Component {
   }
 
   componentDidMount() {
-    if (this.props.pics.length < 1 && this.props.mapState.bounds) {
+    if (!this.props.PostId && this.props.mapState.bounds) {
       this.FBcheckBeforeGetPics();
     }
   }
@@ -53,7 +53,8 @@ class Region extends Component {
 function mapStateToProps(state) {
   return {
     mapState: state.insta.mapState,
-    pics: state.insta.pics
+    pics: state.insta.pics,
+    postId: state.insta.postData.id
   };
 }
 

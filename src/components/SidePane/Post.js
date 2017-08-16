@@ -29,6 +29,10 @@ class Post extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.props.cleanPostData();
+  }
+
   render() {
     const post = this.props.postData;
     const conditionalPostLocationHeader = () => {

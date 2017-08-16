@@ -181,6 +181,12 @@ export const getPostInfo = photoId => {
   };
 };
 
+export const cleanPostData = () => {
+  return {
+    type: CLEAN_POST
+  };
+};
+
 export const getTagInfo = tag => {
   return dispatch => {
     dispatch({ type: SET_LOADING });
