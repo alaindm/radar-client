@@ -23,11 +23,6 @@ class LocationMarker extends Component {
   render() {
     const isViewingLocation =
       this.props.$dimensionKey === this.props.locationComponentId;
-    console.log(
-      isViewingLocation,
-      this.props.$dimensionKey,
-      this.props.locationComponentId
-    );
     const textStyle = {
       position: "absolute",
       transform: "translateY(-25%)",
