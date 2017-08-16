@@ -272,7 +272,9 @@ function doFbLogin(dispatch) {
 
 export function setCenter(lat, lng, zoom) {
   return (dispatch, getState) => {
-    zoom ? zoom : getState().insta.mapState.zoom;
+    if (!zoom) {
+      zoom = getState().insta.mapState.zoom;
+    }
     return dispatch({
       type: SET_CENTER,
       payload: [lat, lng, zoom]

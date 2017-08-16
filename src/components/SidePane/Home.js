@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { List, ListItem } from "material-ui/List";
 import { Card, CardTitle } from "material-ui/Card";
 import Avatar from "material-ui/Avatar";
-import Subheader from "material-ui/Subheader";
 import * as actions from "../../actions";
 
 class Home extends Component {

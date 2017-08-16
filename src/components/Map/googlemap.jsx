@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import shouldPureComponentUpdate from "react-pure-render/function";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import Rx from "rxjs";
